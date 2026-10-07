@@ -1,0 +1,182 @@
+========================================
+           SOC ALERT REPORT
+========================================
+
+Total Alerts: 14
+
+Critical: 7
+High: 5
+Medium: 2
+Highest Risk Score: 90
+
+Overall Severity: CRITICAL
+
+ALERT #1
+Rule: Brute Force
+Severity: CRITICAL
+Risk Score: 90
+Source IP: 185.199.108.15
+Failed Attempts: 35
+Time Window: 0 days 00:04:32
+Timestamp: 2026-10-05 09:05:32
+Recommended Action: Investigate the source IP and review authentication logs.
+IOC TYPE: IP Address
+IOC VALUE: 185.199.108.15
+
+ALERT #2
+Rule: Brute Force
+Severity: CRITICAL
+Risk Score: 90
+Source IP: 203.0.113.77
+Failed Attempts: 32
+Time Window: 0 days 00:04:26
+Timestamp: 2026-10-05 10:19:26
+Recommended Action: Investigate the source IP and review authentication logs.
+IOC TYPE: IP Address
+IOC VALUE: 203.0.113.77
+
+ALERT #3
+Rule: Brute Force
+Severity: CRITICAL
+Risk Score: 90
+Source IP: 91.198.174.20
+Failed Attempts: 30
+Time Window: 0 days 00:03:52
+Timestamp: 2026-10-05 09:04:52
+Recommended Action: Investigate the source IP and review authentication logs.
+IOC TYPE: IP Address
+IOC VALUE: 91.198.174.20
+
+ALERT #4
+Rule: Suspicious login
+Severity: CRITICAL
+Risk Score: 90
+Source IP: 185.199.108.15
+Failed Attempts: 35
+Time Window: 5 minutes
+Timestamp: 2026-10-05 09:05:45
+Recommended Action: Investigate the successful login and verify the user's identity.
+IOC TYPE: IP Address
+IOC VALUE: 185.199.108.15
+Username: admin
+
+ALERT #5
+Rule: Suspicious login
+Severity: CRITICAL
+Risk Score: 90
+Source IP: 198.51.100.44
+Failed Attempts: 20
+Time Window: 5 minutes
+Timestamp: 2026-10-05 12:03:30
+Recommended Action: Investigate the successful login and verify the user's identity.
+IOC TYPE: IP Address
+IOC VALUE: 198.51.100.44
+Username: alice
+
+ALERT #6
+Rule: Suspicious login
+Severity: CRITICAL
+Risk Score: 90
+Source IP: 45.83.64.12
+Failed Attempts: 36
+Time Window: 5 minutes
+Timestamp: 2026-10-05 09:06:25
+Recommended Action: Investigate the successful login and verify the user's identity.
+IOC TYPE: IP Address
+IOC VALUE: 45.83.64.12
+Username: maria
+
+ALERT #7
+Rule: Suspicious login
+Severity: CRITICAL
+Risk Score: 90
+Source IP: 91.198.174.20
+Failed Attempts: 30
+Time Window: 5 minutes
+Timestamp: 2026-10-05 09:05:05
+Recommended Action: Investigate the successful login and verify the user's identity.
+IOC TYPE: IP Address
+IOC VALUE: 91.198.174.20
+Username: john
+
+ALERT #8
+Rule: Brute Force
+Severity: HIGH
+Risk Score: 70
+Source IP: 103.77.14.55
+Failed Attempts: 12
+Time Window: 0 days 00:03:18
+Timestamp: 2026-10-05 10:38:18
+Recommended Action: Investigate the source IP and review authentication logs.
+IOC TYPE: IP Address
+IOC VALUE: 103.77.14.55
+
+ALERT #9
+Rule: Brute Force
+Severity: HIGH
+Risk Score: 70
+Source IP: 185.220.101.10
+Failed Attempts: 12
+Time Window: 0 days 00:03:18
+Timestamp: 2026-10-05 09:08:18
+Recommended Action: Investigate the source IP and review authentication logs.
+IOC TYPE: IP Address
+IOC VALUE: 185.220.101.10
+
+ALERT #10
+Rule: Brute Force
+Severity: HIGH
+Risk Score: 70
+Source IP: 198.51.100.44
+Failed Attempts: 20
+Time Window: 0 days 00:02:54
+Timestamp: 2026-10-05 12:02:54
+Recommended Action: Investigate the source IP and review authentication logs.
+IOC TYPE: IP Address
+IOC VALUE: 198.51.100.44
+
+ALERT #11
+Rule: Brute Force
+Severity: HIGH
+Risk Score: 70
+Source IP: 45.155.22.91
+Failed Attempts: 12
+Time Window: 0 days 00:03:18
+Timestamp: 2026-10-05 09:53:18
+Recommended Action: Investigate the source IP and review authentication logs.
+IOC TYPE: IP Address
+IOC VALUE: 45.155.22.91
+
+ALERT #12
+Rule: Multiple Users From One IP
+Severity: HIGH
+Risk Score: 70
+Source IP: 203.0.113.77
+Unique Users: 8
+Timestamp: 2026-10-05 10:19:26
+Recommended Action: Investigate the source IP and determine whether multiple accounts are being targeted.
+IOC TYPE: IP Address
+IOC VALUE: 203.0.113.77
+
+ALERT #13
+Rule: Multiple Users From One IP
+Severity: MEDIUM
+Risk Score: 40
+Source IP: 10.0.1.12
+Unique Users: 3
+Timestamp: 2026-10-05 13:44:00
+Recommended Action: Investigate the source IP and determine whether multiple accounts are being targeted.
+IOC TYPE: IP Address
+IOC VALUE: 10.0.1.12
+
+ALERT #14
+Rule: Multiple Users From One IP
+Severity: MEDIUM
+Risk Score: 40
+Source IP: 198.51.100.44
+Unique Users: 4
+Timestamp: 2026-10-05 12:03:30
+Recommended Action: Investigate the source IP and determine whether multiple accounts are being targeted.
+IOC TYPE: IP Address
+IOC VALUE: 198.51.100.44
+
