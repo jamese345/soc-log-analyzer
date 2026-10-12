@@ -124,3 +124,5 @@ os.makedirs(report_dir, exist_ok=True)
 
 with open(os.path.join(report_dir, "soc_report.txt"), "w") as file:
     file.write(generate_soc_report(prioritized_alerts))
+
+
