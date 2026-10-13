@@ -1,203 +1,160 @@
-
 # 🛡️ SOC Log Analyzer
 
-A Python-based Security Operations Center (SOC) log analyzer that detects suspicious authentication activity, prioritizes alerts by risk, extracts indicators of compromise (IOCs), and generates an analyst-ready security report.
+A Python-based security log analysis tool designed to help SOC analysts identify suspicious authentication activity, assess risk, and generate actionable security reports.
 
-> **Project 1 of my journey toward becoming an AI SOC Analyst.**
-
----
-
-## 🎯 Project Goal
-
-The goal of this project is to simulate part of a real SOC investigation workflow using Python.
-
-Instead of simply parsing log files, the analyzer takes raw authentication events and turns them into prioritized security alerts with:
-
-* Detection logic
-* Severity classification
-* Risk scoring
-* Alert prioritization
-* IOC extraction
-* Investigation recommendations
-* Automated SOC reporting
+This project is part of my journey toward building an **AI SOC Analyst** by combining cybersecurity, Python, automation, and eventually AI-assisted security analysis.
 
 ---
 
-## 🔍 Detection Capabilities
+## 🎯 Project Overview
 
-The analyzer currently detects three types of suspicious activity.
+Security Operations Centers process large volumes of authentication and security logs every day.
 
-### 🚨 1. Brute Force Detection
+Manually reviewing these events can be time-consuming and can cause important threats to be overlooked.
 
-Identifies multiple failed authentication attempts from the same source IP within a short time window.
+The **SOC Log Analyzer** automates the first stage of this workflow by:
 
-**Severity:**
+- Parsing security logs
+- Detecting suspicious authentication activity
+- Applying security detection rules
+- Calculating risk
+- Prioritizing security events
+- Generating analyst-friendly findings
+- Producing automated security reports
 
-| Failed Attempts | Severity | Risk Score |
-| --------------: | -------- | ---------: |
-|            5–10 | MEDIUM   |         40 |
-|           11–20 | HIGH     |         70 |
-|             21+ | CRITICAL |         90 |
-
----
-
-### 🚨 2. Suspicious Successful Login
-
-Detects a successful authentication occurring after multiple failed login attempts from the same IP within five minutes.
-
-This helps identify scenarios such as:
-
-* Possible credential compromise
-* Password spraying
-* Brute-force attempts followed by successful authentication
+The current implementation uses deterministic, rule-based detection as the foundation for future AI-assisted analysis.
 
 ---
 
-### 🚨 3. Multiple Users From One IP
-
-Detects when a single source IP authenticates against multiple user accounts.
-
-This can help identify:
-
-* Account targeting
-* Credential attacks
-* Compromised infrastructure
-* Suspicious shared-source activity
-
----
-
-## ⚙️ Analysis Pipeline
+## 🏗️ Architecture
 
 ```text
-                Log File
-                   │
-                   ▼
-          ┌─────────────────┐
-          │ Load CSV / JSON │
-          └────────┬────────┘
-                   ▼
-          ┌─────────────────┐
-          │ Validate Input  │
-          └────────┬────────┘
-                   ▼
-          ┌─────────────────┐
-          │ Preprocess Logs │
-          └────────┬────────┘
-                   ▼
-       ┌─────────────────────────┐
-       │   Detection Engine      │
-       │                         │
-       │ • Brute Force           │
-       │ • Suspicious Login      │
-       │ • Multiple Users / IP   │
-       └────────────┬────────────┘
-                    ▼
-          ┌─────────────────┐
-          │ Deduplicate     │
-          │ Alerts          │
-          └────────┬────────┘
-                   ▼
-          ┌─────────────────┐
-          │ Risk Scoring    │
-          └────────┬────────┘
-                   ▼
-          ┌─────────────────┐
-          │ Prioritize      │
-          │ Alerts          │
-          └────────┬────────┘
-                   ▼
-          ┌─────────────────┐
-          │ IOC Extraction  │
-          └────────┬────────┘
-                   ▼
-          ┌─────────────────┐
-          │ Recommendations │
-          └────────┬────────┘
-                   ▼
-          ┌─────────────────┐
-          │ SOC Report      │
-          └─────────────────┘
+Security Logs
+     │
+     ▼
+Log Parser
+     │
+     ▼
+Event Normalization
+     │
+     ▼
+Detection Rules
+     │
+     ├── Failed Authentication Detection
+     ├── Suspicious Activity Detection
+     └── Threshold Analysis
+     │
+     ▼
+Risk Assessment
+     │
+     ▼
+Event Prioritization
+     │
+     ▼
+SOC Findings
+     │
+     ▼
+Security Report
 ```
 
 ---
 
-## 📊 Risk Scoring
+## 🔎 Key Features
 
-Every generated alert receives a risk score based on its severity.
+### Log Analysis
 
-| Severity    | Risk Score |
-| ----------- | ---------: |
-| 🟡 MEDIUM   |         40 |
-| 🟠 HIGH     |         70 |
-| 🔴 CRITICAL |         90 |
+Processes security events and extracts relevant information such as:
 
-Alerts are then sorted from highest to lowest risk so an analyst can focus on the most important events first.
+- Timestamp
+- Source IP
+- Username
+- Authentication result
+- Event type
+- Failed attempts
+
+### Detection Rules
+
+Identifies suspicious behavior using predefined security rules.
+
+Examples include:
+
+- Multiple failed authentication attempts
+- Suspicious login activity
+- Authentication anomalies
+- Threshold-based detection
+
+### Risk Assessment
+
+Security events are evaluated based on their characteristics and assigned an appropriate risk level.
+
+### Event Prioritization
+
+Security findings can be prioritized so that analysts can focus on the most important events first.
+
+### Automated Reporting
+
+The analyzer generates structured security findings that can be used as the foundation for SOC reporting and analyst investigation.
 
 ---
 
-## 🔎 IOC Extraction
+## 🧠 Detection Philosophy
 
-The analyzer extracts security-relevant indicators from generated alerts.
-
-Currently supported:
+The project follows a simple SOC workflow:
 
 ```text
-IOC Type: IP Address
-IOC Value: <source IP>
+Collect
+   ↓
+Normalize
+   ↓
+Detect
+   ↓
+Assess Risk
+   ↓
+Prioritize
+   ↓
+Investigate
 ```
 
-The IOC extraction layer is intentionally simple at this stage and will be expanded in future projects.
+The goal is not to replace a SOC analyst.
+
+The goal is to **reduce repetitive analysis and help analysts focus on high-value investigations**.
 
 ---
 
-## 📝 SOC Reporting
+## 📊 Example Detection
 
-After analysis, the application automatically generates:
+A simplified example of suspicious authentication activity:
 
 ```text
-reports/soc_report.txt
+Source IP: 185.199.108.15
+Username: admin
+Failed Attempts: 35
+Event: Multiple Failed Logins
+Risk: High
 ```
 
-The report contains:
-
-* Total alerts
-* Severity summary
-* Highest risk score
-* Detection rule
-* Source IP
-* Failed attempts
-* Time window
-* Username
-* IOC information
-* Recommended analyst action
-
+The system can identify this activity as suspicious and surface it for further investigation.
 
 ---
-### Example Output
-
-![SOC Alert Report](docs/report.png)
 
 ## 🧪 Testing
 
-The project includes automated unit and integration tests covering the detection and reporting pipeline.
+The project includes automated tests covering the core detection and analysis functionality.
 
-Run all tests with:
+Run the test suite with:
 
 ```bash
-python -m unittest discover
+python -m unittest discover -s tests -v
 ```
 
-Current test coverage includes:
+The tests validate important security-analysis behavior including:
 
-* Brute-force detection
-* Suspicious login detection
-* Multiple-user detection
-* Risk scoring
-* Alert integration
-* SOC report generation
-* IOC extraction
-
-**11 automated tests passing.**
+- Detection logic
+- Risk assessment
+- Authentication analysis
+- Event processing
+- Report generation
+- End-to-end analysis
 
 ---
 
@@ -207,147 +164,176 @@ Current test coverage includes:
 soc-log-analyzer/
 │
 ├── data/
-│   ├── Logs.csv
-│   └── logs.json
+│   └── sample_logs
 │
 ├── reports/
-│   └── soc_report.txt
+│   └── generated_reports
 │
 ├── src/
+│   ├── __init__.py
 │   └── analyzer.py
 │
 ├── tests/
 │   ├── __init__.py
-│   ├── test_brute_force.py
-│   ├── test_integration.py
-│   ├── test_ioc.py
-│   ├── test_multiple_users.py
-│   ├── test_report.py
-│   ├── test_risk_score.py
-│   └── test_suspicious_login.py
+│   └── test_analyzer.py
 │
 ├── main.py
 ├── requirements.txt
-├── .gitignore
-├── LICENSE
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-## 🛠️ Technologies
+## ⚙️ Installation
 
-* **Python**
-* **Pandas**
-* **Tkinter**
-* **unittest**
-* **Git**
-* **GitHub**
-
----
-
-## 🚀 Running the Project
-
-### 1. Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/jamese345/soc-log-analyzer.git
+```
+
+Move into the project:
+
+```bash
 cd soc-log-analyzer
 ```
 
-### 2. Create a virtual environment
+Create a virtual environment:
 
 ```bash
 python -m venv .venv
 ```
 
-### 3. Activate the environment
-
-Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-### 4. Install dependencies
+Activate it on Windows:
 
 ```bash
-pip install -r requirements.txt
+.venv\Scripts\activate
 ```
 
-### 5. Run the analyzer
+Run the analyzer:
 
 ```bash
 python main.py
 ```
 
-A file-selection window will open. Select a CSV or JSON log file.
+Run the tests:
 
-The analyzer will process the events and generate:
-
-```text
-reports/soc_report.txt
+```bash
+python -m unittest discover -s tests -v
 ```
 
 ---
 
-## 💡 What I Learned
+## 🛡️ Security Concepts Demonstrated
 
-This project helped me practice building a security automation workflow rather than a simple Python script.
+This project demonstrates practical SOC concepts including:
 
-Key areas I worked on:
-
-* Security log analysis
-* Detection engineering fundamentals
-* Python data processing
-* Pandas
-* Authentication attack detection
-* Alert severity classification
-* Risk scoring
-* Alert prioritization
-* IOC extraction
-* Automated security reporting
-* Unit testing
-* Integration testing
-* Git and GitHub
+- Security log analysis
+- Authentication monitoring
+- Brute-force detection
+- Detection engineering
+- Threshold-based detection
+- Risk assessment
+- Event prioritization
+- Security automation
+- SOC reporting
+- Analyst decision support
 
 ---
 
-## 🗺️ Roadmap
+## 🚀 AI Roadmap
 
-This project is the first step in a larger AI SOC Analyst roadmap.
+The current version provides a deterministic rule-based foundation.
 
-### Completed
+Future versions will explore AI-assisted capabilities such as:
 
-* [x] SOC Log Analyzer
+### Phase 1 — AI Event Classification
 
-### Next
+Use machine learning or an LLM to classify security events.
 
-* [ ] 🚨 Automated Alert Triage Engine
-* [ ] 🧠 ML-Based SOC Anomaly Detector
-* [ ] 🔎 Threat Intelligence Enrichment Engine
-* [ ] 📚 Cybersecurity RAG Assistant
-* [ ] 🤖 AI SOC Investigation Agent
-* [ ] 🏆 Full AI SOC Analyst Platform
+### Phase 2 — Analyst Reasoning
+
+Generate natural-language explanations of why an event is suspicious.
+
+### Phase 3 — Threat Context
+
+Combine log information with threat intelligence and additional security context.
+
+### Phase 4 — Investigation Assistance
+
+Generate recommended investigation steps for analysts.
+
+### Phase 5 — AI SOC Integration
+
+Connect the analyzer with the **Automated Alert Triage Engine** and other SOC automation components.
 
 ---
 
-## 👨‍💻 About
+## 🔗 Project Evolution
 
-I'm building practical cybersecurity projects focused on combining:
+This project is the first stage of my AI SOC development journey.
 
-**Cybersecurity + Python + AI**
+```text
+SOC Log Analyzer
+       │
+       ▼
+Automated Alert Triage Engine
+       │
+       ▼
+AI-Assisted Security Analysis
+       │
+       ▼
+AI SOC Analyst
+```
 
-My long-term goal is to build intelligent systems for:
+The goal is to progressively combine:
 
-* Threat detection
-* Alert triage
-* Security investigation
-* Incident response
+**Cybersecurity + Python + Automation + AI**
+
+into practical SOC capabilities.
+
+---
+
+## 📌 Project Status
+
+**Version:** `v1.0.0`
+
+**Status:** Stable foundation
+
+The rule-based security analysis foundation is complete.
+
+Future development will focus on integrating AI-assisted analysis while maintaining deterministic security rules as a reliable baseline.
+
+---
+
+## 💡 Why This Project Matters
+
+SOC analysts receive large volumes of security events every day.
+
+Automation can help by:
+
+- Reducing repetitive analysis
+- Highlighting suspicious activity
+- Prioritizing investigations
+- Standardizing detection logic
+- Providing analysts with useful context
+
+This project demonstrates the first step toward building security systems that can assist analysts rather than simply generating raw alerts.
+
+---
+
+## 👨‍💻 Author
+
+**Brian Owala**
+
+Cybersecurity | Python | Security Automation | AI SOC
+
+Building practical security engineering projects toward becoming an **AI SOC Analyst**.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
